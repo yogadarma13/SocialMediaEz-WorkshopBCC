@@ -82,8 +82,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         post1.setId_user(0);
         post1.setContent("Satu dua tiga empat lima enam");
         post1.setDeleted(false);
-        post1.setCreatedAt("1231232");
-        post1.setUpdatedAt("12312313");
 
         ArrayList<Post> postModelArrayList = new ArrayList<>();
         postModelArrayList.add(post1);
