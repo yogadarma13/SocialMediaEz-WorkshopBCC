@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Social Media Ez</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dummy_person_name">Person Name</string>
+    <string name="dummy_content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</string>
+    <string name="dummy_comment_number">3</string>
+    <string name="dummy_like_number">9</string>
+    <string name="dummy_someone_email">someone@gmail.com</string>
+    <string name="delete_post">Delete Post</string>
+    <string name="cancel">Cancel</string>
+
 </resources>

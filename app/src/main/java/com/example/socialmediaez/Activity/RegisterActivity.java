@@ -2,6 +2,8 @@ package com.example.socialmediaez.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -17,8 +19,6 @@ import com.example.socialmediaez.responses.RegisterResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -26,6 +26,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     EditText etNameRegister, etEmailRegister, etPasswordRegister;
     Button btnRegister, btnToLogin;
     MyApi myApi;
+    ProgressDialog pd_loading;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         btnToLogin = findViewById(R.id.btn_to_login);
 
         btnRegister.setOnClickListener(this);
+        btnToLogin.setOnClickListener(this);
 
     }
 
@@ -46,33 +49,54 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_register:
-                name = etNameRegister.getText().toString();
-                email = etEmailRegister.getText().toString();
-                password = etPasswordRegister.getText().toString();
-
-                myApi = ApiClient.getClient().create(MyApi.class);
-
-                User user = new User(name, email, password);
-
-
-                Call<RegisterResponse> registerCall = myApi.register(user);
-
-                registerCall.enqueue(new Callback<RegisterResponse>() {
-                    @Override
-                    public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
-                        if (response.isSuccessful()){
-                            Toast.makeText(RegisterActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(RegisterActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<RegisterResponse> call, Throwable t) {
-                        Toast.makeText(RegisterActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                requestRegister();
+                break;
+            case R.id.btn_to_login:
+                Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
+                break;
         }
 
+    }
+
+    private void requestRegister() {
+        pd_loading = new ProgressDialog(RegisterActivity.this);
+        pd_loading.setMessage("Loading...");
+        pd_loading.setCancelable(true);
+        pd_loading.setCanceledOnTouchOutside(false);
+        pd_loading.show();
+        name = etNameRegister.getText().toString();
+        email = etEmailRegister.getText().toString();
+        password = etPasswordRegister.getText().toString();
+
+        myApi = ApiClient.getClient().create(MyApi.class);
+
+        User user = new User(name, email, password);
+
+
+        Call<RegisterResponse> registerCall = myApi.register(user);
+
+        registerCall.enqueue(new Callback<RegisterResponse>() {
+            @Override
+            public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
+                if (response.isSuccessful()){
+                    pd_loading.dismiss();
+                    Toast.makeText(RegisterActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    pd_loading.dismiss();
+                    Toast.makeText(RegisterActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RegisterResponse> call, Throwable t) {
+                pd_loading.dismiss();
+                Toast.makeText(RegisterActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

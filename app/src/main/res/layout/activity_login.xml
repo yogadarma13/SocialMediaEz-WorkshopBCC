@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".Activity.RegisterActivity">
+    tools:context=".Activity.LoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,47 +13,42 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sign Up"
+            android:text="Login"
+            android:textSize="24sp"
             android:textColor="@android:color/black"
-            android:gravity="center_horizontal"
-            android:textSize="24sp"/>
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Nama"
-            android:id="@+id/et_name_register"/>
+            android:layout_gravity="center_horizontal"/>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
-            android:id="@+id/et_email_register"/>
+            android:id="@+id/et_email_login"
+            android:layout_marginTop="32dp"/>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
-            android:id="@+id/et_password_register"/>
-
+            android:hint="password"
+            android:id="@+id/et_password_login"
+            android:layout_marginTop="8dp"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true">
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sign Up"
+            android:text="Sign In"
             android:textAllCaps="false"
             android:background="@drawable/bg_btn_blue"
             android:textColor="@android:color/white"
-            android:id="@+id/btn_register"/>
+            android:id="@+id/btn_login"/>
 
         <Button
             android:layout_width="match_parent"
@@ -61,8 +56,8 @@
             android:background="@drawable/bg_btn_border"
             android:layout_marginTop="16dp"
             android:textAllCaps="false"
-            android:text="Sign In"
-            android:id="@+id/btn_to_login"/>
+            android:text="Sign Up"
+            android:id="@+id/btn_to_signup"/>
     </LinearLayout>
 
 
