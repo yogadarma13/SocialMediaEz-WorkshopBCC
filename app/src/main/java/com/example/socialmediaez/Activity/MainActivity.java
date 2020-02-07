@@ -14,6 +14,7 @@ import com.example.socialmediaez.api.ApiClient;
 import com.example.socialmediaez.api.MyApi;
 import com.example.socialmediaez.model.Login;
 import com.example.socialmediaez.responses.LoginResponse;
+import com.example.socialmediaez.utils.AppPreference;
 //import com.example.socialmediaez.responses.LoginResponse;
 
 import okhttp3.ResponseBody;
@@ -28,10 +29,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button btnLogin, btnToRegister;
     MyApi myApi;
 
+    private AppPreference appPreference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        appPreference = new AppPreference(this);
 
         etEmailLogin = findViewById(R.id.et_email_login);
         etPasswordLogin = findViewById(R.id.et_password_login);
@@ -77,6 +82,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_to_signup:
                 Intent intent = new Intent(this, RegisterActivity.class);
                 startActivity(intent);
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (appPreference.isLoggedIn()){
+
         }
     }
 }
