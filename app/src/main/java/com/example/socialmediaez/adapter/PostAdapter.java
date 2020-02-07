@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.socialmediaez.R;
-import com.example.socialmediaez.Activity.PostActivity;
+import com.example.socialmediaez.activity.PostActivity;
 import com.example.socialmediaez.model.Post;
 
 import java.util.ArrayList;

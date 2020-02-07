@@ -1,4 +1,4 @@
-package com.example.socialmediaez.Activity;
+package com.example.socialmediaez.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;

@@ -18,7 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.socialmediaez.R;
-import com.example.socialmediaez.Activity.CreatePostActivity;
+import com.example.socialmediaez.activity.CreatePostActivity;
 import com.example.socialmediaez.adapter.PostAdapter;
 import com.example.socialmediaez.model.Post;
 

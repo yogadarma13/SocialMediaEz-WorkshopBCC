@@ -14,13 +14,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Activity.PostActivity"></activity>
+        <activity android:name=".activity.PostActivity"></activity>
         <activity
-            android:name=".Activity.CreatePostActivity"
-            android:parentActivityName=".Activity.MainActivity" />
-        <activity android:name=".Activity.MainActivity" />
-        <activity android:name=".Activity.RegisterActivity" />
-        <activity android:name=".Activity.LoginActivity">
+            android:name=".activity.CreatePostActivity"
+            android:parentActivityName=".activity.MainActivity" />
+        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.RegisterActivity" />
+        <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
