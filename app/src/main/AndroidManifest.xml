@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activity.PostActivity"></activity>
+        <activity android:name=".activity.PostActivity"
+            android:parentActivityName=".activity.MainActivity"/>
         <activity
             android:name=".activity.CreatePostActivity"
             android:parentActivityName=".activity.MainActivity" />

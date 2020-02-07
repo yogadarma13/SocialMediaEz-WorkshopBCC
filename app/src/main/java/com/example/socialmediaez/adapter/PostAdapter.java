@@ -14,23 +14,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.socialmediaez.R;
 import com.example.socialmediaez.activity.PostActivity;
+import com.example.socialmediaez.api.ApiClient;
+import com.example.socialmediaez.api.MyApi;
 import com.example.socialmediaez.model.Post;
+import com.example.socialmediaez.responses.UserResponse;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     private final Context context;
-    private final ArrayList<Post> list_post = new ArrayList<>();
+    private ArrayList<Post> list_post;
 
-    public PostAdapter(Context context) {
+    public PostAdapter(Context context, ArrayList<Post> list_post) {
         this.context = context;
-    }
-
-    public void setData(ArrayList<Post> items) {
-        list_post.clear();
-        list_post.addAll(items);
-        notifyDataSetChanged();
+        this.list_post = list_post;
     }
 
     @NonNull
@@ -40,6 +42,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         final ViewHolder holder = new ViewHolder(v);
         holder.itemView.setOnClickListener(v1 -> {
             Intent intent = new Intent(context, PostActivity.class);
+            intent.putExtra("post", list_post.get(holder.getAdapterPosition()));
             context.startActivity(intent);
         });
         return holder;
@@ -69,8 +72,23 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         }
 
         void bind(Post post) {
-            tv_person_name.setText(String.valueOf(post.getId()));
+            tv_person_name.setText(String.valueOf(post.getId_user()));
             tv_content.setText(post.getContent());
         }
     }
+
+//    private String getName(ViewHolder holder) {
+//        MyApi myApi = ApiClient.getClient().create(MyApi.class);
+//        myApi.getUserById(list_post.get(holder.getAdapterPosition()).getId_user()).enqueue(new Callback<UserResponse>() {
+//            @Override
+//            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<UserResponse> call, Throwable t) {
+//
+//            }
+//        });
+//    }
 }

@@ -20,9 +20,16 @@ import android.widget.Button;
 import com.example.socialmediaez.R;
 import com.example.socialmediaez.activity.CreatePostActivity;
 import com.example.socialmediaez.adapter.PostAdapter;
+import com.example.socialmediaez.api.ApiClient;
+import com.example.socialmediaez.api.MyApi;
 import com.example.socialmediaez.model.Post;
+import com.example.socialmediaez.responses.PostResponse;
 
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +40,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private Toolbar toolbar;
     private Button btn_create_post;
     private RecyclerView rv_post;
+    MyApi myApi;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -51,22 +59,19 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         rv_post = view.findViewById(R.id.rv_post);
 
-        PostAdapter postAdapter = new PostAdapter(getContext());
-        postAdapter.setData(getAllPost());
-        rv_post.setAdapter(postAdapter);
-        rv_post.setLayoutManager(new LinearLayoutManager(getContext()));
+        getAllPost();
 
         btn_create_post = view.findViewById(R.id.btn_create);
         btn_create_post.setOnClickListener(this);
 
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayShowHomeEnabled(true);
         return view;
     }
 
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
+        switch (v.getId()) {
             case R.id.btn_create:
                 Intent intent = new Intent(getContext(), CreatePostActivity.class);
                 startActivity(intent);
@@ -74,18 +79,24 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    private void getAllPost() {
+        myApi = ApiClient.getClient().create(MyApi.class);
+        Call<PostResponse> postCall = myApi.getAllPost();
+        postCall.enqueue(new Callback<PostResponse>() {
+            @Override
+            public void onResponse(Call<PostResponse> call, Response<PostResponse> response) {
+                if (response.isSuccessful()) {
+                    ArrayList<Post> posts = response.body().getData();
+                    rv_post.setAdapter(new PostAdapter(getContext(), posts));
+                    rv_post.setLayoutManager(new LinearLayoutManager(getContext()));
+                }
+            }
 
-    private ArrayList<Post> getAllPost(){
-        Post post1 = new Post();
-        post1.setId(1);
-        post1.setId_user(0);
-        post1.setContent("Satu dua tiga empat lima enam");
-        post1.setDeleted(false);
+            @Override
+            public void onFailure(Call<PostResponse> call, Throwable t) {
 
-        ArrayList<Post> postModelArrayList = new ArrayList<>();
-        postModelArrayList.add(post1);
-
-        return postModelArrayList;
+            }
+        });
     }
 
 }
